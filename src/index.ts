@@ -1,7 +1,7 @@
 //Importing project dependancies that we installed earlier
 import * as dotenv from "dotenv";
 import express from "express";
-import userRoutes from "./routes/applicantRoutes";
+import applicantRoutes from "./routes/applicantRoutes";
 import sequelize from "./config/sequalize";
 
 const app = express();
@@ -27,7 +27,7 @@ sequelize
 app.get("/", (req, res) => {
   res.send("Hello, You are on the server!");
 });
-app.use("/awesome/applicant", userRoutes);
+app.use("/awesome/applicant", applicantRoutes);
 
 module.exports = app;
 export default app;

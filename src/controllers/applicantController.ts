@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
-import User from "../models/applicant";
+import Applicant from "../models/applicant";
 import { errorHandler } from "../utils/errorHandler";
 
 // Controller functions
 // get all applicants
 export async function getApplicant(req: Request, res: Response): Promise<void> {
   try {
-    const applicant = await User.findAll();
+    const applicant = await Applicant.findAll();
     if (!applicant || applicant.length === 0) {
       res.status(404).json({ message: "No Applicant found" });
     } else {
@@ -24,7 +24,7 @@ export async function getApplicantById(
   res: Response
 ): Promise<void> {
   try {
-    const applicant = await User.findByPk(req.params.id);
+    const applicant = await Applicant.findByPk(req.params.id);
     if (!applicant) {
       res.status(404).json({ message: "No Applicant found" });
     } else {
@@ -43,7 +43,7 @@ export async function createApplicant(
 ): Promise<void> {
   const { firstName, lastName, email, phoneNumber } = req.body;
   try {
-    const newApplicant = await User.create({
+    const newApplicant = await Applicant.create({
       firstName,
       lastName,
       email,
@@ -66,11 +66,11 @@ export async function updateApplicant(
 ): Promise<void> {
   const { firstName, lastName, email, phoneNumber } = req.body;
   try {
-    const applicant = await User.findByPk(req.params.id);
+    const applicant = await Applicant.findByPk(req.params.id);
     if (!applicant) {
       res.status(404).json({ message: "Applicant not found" });
     } else {
-      const updateapplicant = await User.update(
+      const updateapplicant = await Applicant.update(
         { firstName, lastName, email, phoneNumber },
         {
           where: { id: req.params.id },
@@ -94,7 +94,7 @@ export async function deleteApplicant(
 ): Promise<void> {
   const { id } = req.params;
   try {
-    const applicant = await User.destroy({ where: { id } });
+    const applicant = await Applicant.destroy({ where: { id } });
 
     if (!applicant) {
       res.status(404).json({ message: "Applicant not found" });
